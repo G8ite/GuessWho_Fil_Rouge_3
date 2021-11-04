@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".PlayerBoardGame"
+            android:exported="false" />
+        <activity
+            android:name=".PlayerNameScreen"
+            android:exported="false" />
+        <activity
+            android:name=".LanguageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".OptionsActivity"
+            android:exported="false" />
+        <activity
             android:name=".InscriptionActivity"
             android:exported="false" />
         <activity

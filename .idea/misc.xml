@@ -4,9 +4,19 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_inscription.xml" value="0.31040564373897706" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_language.xml" value="0.16490299823633156" />
         <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_main.xml" value="0.17372134038800705" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_options.xml" value="0.16490299823633156" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_player_board_game.xml" value="0.29583333333333334" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_player_name_screen.xml" value="0.16490299823633156" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_player_one_board_game.xml" value="0.16490299823633156" />
         <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_inscription.xml" value="0.3555253623188406" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_language.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_main.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_options.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_player_board_game.xml" value="0.2572463768115942" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_player_name_screen.xml" value="0.19479166666666667" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_player_one_board_game.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/amand/AndroidStudioProjects/Quiestce/app/src/main/res/layout/activity_inscription.xml" value="0.13994565217391305" />
         <entry key="..\:/Users/amand/AndroidStudioProjects/Quiestce/app/src/main/res/layout/activity_main.xml" value="0.15670289855072464" />
       </map>

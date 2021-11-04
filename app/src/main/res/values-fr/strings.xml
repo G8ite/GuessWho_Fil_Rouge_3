@@ -9,6 +9,21 @@
     <string name="player2Name">Veuillez entrer le nom du deuxième humain :</string>
     <string name="cancel">Annuler</string>
     <string name="play">Jouer</string>
+    <string name="returnP">Retour</string>
+    <string name="language">Langues</string>
+    <string name="display">Affichage</string>
+    <string name="fr">Français</string>
+    <string name="en">Anglais</string>
+    <string name="es">Espagnol</string>
+    <string name="pt">Portuguais</string>
+    <string name="player1NameVoid">Le premier humain n\'a pas de nom</string>
+    <string name="player2NameVoid">Le deuxième humain n\'a pas de nom</string>
+    <string name="player1EqualPlayer2">Le premier et le deuxième humain ne peuvent pas avoir le même nom</string>
+    <string name="toYou">À vous de jouer</string>
+    <string name="ready">Je suis prêt.e</string>
+    <string name="yourTurn">, c\'est à ton tour de jouer</string>
+    <string name="wait">, tu dois attendre ton tour</string>
+    <string name="game_board">Plateau de jeu</string>
 
 
 </resources>

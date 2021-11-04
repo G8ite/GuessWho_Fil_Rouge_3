@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/home_backgroundv2">
+
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/option"
+      android:fontFamily="@font/prisma"
+      android:textSize="44dp"
+      android:gravity="center"
+      android:background="@color/blue"
+      android:textColor="@color/white"
+      android:layout_marginBottom="12dp"
+      android:padding="12dp"/>
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      android:padding="12dp"
+      android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center"
+        android:layout_marginTop="48dp">
+        <Button
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:background="@color/blue"
+            android:text="@string/language"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="24dp" />
+        <Button
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:background="@color/purple"
+            android:text="@string/display"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="24dp" />
+        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center">
+        <Button
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:background="@color/yellow"
+            android:text="@string/rules"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="24dp"/>
+        <Button
+            android:layout_width="162dp"
+            android:layout_height="wrap_content"
+            android:background="@color/pink"
+            android:text="@string/returnP"
+            android:textColor="@color/white"
+            android:layout_marginHorizontal="24dp"
+            android:onClick="clicReturn"/>
+    </LinearLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

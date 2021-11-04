@@ -37,9 +37,10 @@
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="@string/restart"
-            android:textColor="@color/white"
-            android:background="@color/pink"
-            android:layout_marginBottom="24dp"/>
+            android:textColor="@color/lightGrey"
+            android:background="@color/grey"
+            android:layout_marginBottom="24dp"
+            android:enabled="false"/>
 
         <Button
             android:layout_width="160dp"
@@ -47,14 +48,16 @@
             android:text="@string/option"
             android:textColor="@color/white"
             android:background="@color/purple"
-            android:layout_marginBottom="24dp"/>
+            android:layout_marginBottom="24dp"
+            android:onClick="optionPage"/>
 
         <Button
             android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:text="@string/exit"
             android:textColor="@color/white"
-            android:background="@color/yellow"/>
+            android:background="@color/pink"
+            android:onClick="clicQuit"/>
     </LinearLayout>
 
 
