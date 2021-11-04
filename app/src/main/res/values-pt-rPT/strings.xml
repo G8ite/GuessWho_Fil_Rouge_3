@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Quem é esse ?</string>
+    <string name="start_game">Novo jogo</string>
+    <string name="restart">Reiniciar</string>
+    <string name="option">Options</string>
+    <string name="rules">Regras do jogo</string>
+    <string name="exit">Deixar</string>
+    <string name="player1Name">Por favor, insira o nome do primeiro humano:</string>
+    <string name="player2Name">Por favor, insira o nome do segundo humano:</string>
+    <string name="cancel">Cancelar</string>
+    <string name="play">Jogar</string>
+
+</resources>

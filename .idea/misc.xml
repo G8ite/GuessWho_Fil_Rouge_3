@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_inscription.xml" value="0.31040564373897706" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout-land/activity_main.xml" value="0.17372134038800705" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_inscription.xml" value="0.3555253623188406" />
+        <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_main.xml" value="0.17889492753623187" />
+        <entry key="..\:/Users/amand/AndroidStudioProjects/Quiestce/app/src/main/res/layout/activity_inscription.xml" value="0.13994565217391305" />
+        <entry key="..\:/Users/amand/AndroidStudioProjects/Quiestce/app/src/main/res/layout/activity_main.xml" value="0.15670289855072464" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

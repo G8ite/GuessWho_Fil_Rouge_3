@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Guess who ?</string>
+    <string name="start_game">New game</string>
+    <string name="restart">Restart</string>
+    <string name="option">Options</string>
+    <string name="rules">Rules of the game</string>
+    <string name="exit">Exit</string>
+    <string name="player1Name">Please enter the name of the first human:</string>
+    <string name="player2Name">Please enter the name of the second human:</string>
+    <string name="cancel">Cancel</string>
+    <string name="play">Play</string>
+
+</resources>
