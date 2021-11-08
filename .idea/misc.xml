@@ -19,10 +19,14 @@
         <entry key="..\:/Users/21041626/Desktop/Quiestce/app/src/main/res/layout/activity_player_one_board_game.xml" value="0.19479166666666667" />
         <entry key="..\:/Users/amand/AndroidStudioProjects/Quiestce/app/src/main/res/layout/activity_inscription.xml" value="0.13994565217391305" />
         <entry key="..\:/Users/amand/AndroidStudioProjects/Quiestce/app/src/main/res/layout/activity_main.xml" value="0.15670289855072464" />
+        <entry key="..\:/Users/amand/Desktop/Fil rouge 3/GuessWho_Fil_Rouge_3/app/src/main/res/layout/activity_inscription.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/amand/Desktop/Fil rouge 3/GuessWho_Fil_Rouge_3/app/src/main/res/layout/activity_main.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/amand/Desktop/Fil rouge 3/GuessWho_Fil_Rouge_3/app/src/main/res/layout/activity_player_board_game.xml" value="0.12708333333333333" />
+        <entry key="..\:/Users/amand/Desktop/Fil rouge 3/GuessWho_Fil_Rouge_3/app/src/main/res/layout/activity_player_name_screen.xml" value="0.12708333333333333" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

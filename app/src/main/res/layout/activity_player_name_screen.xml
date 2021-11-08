@@ -90,6 +90,7 @@
                 android:onClick="clicReturn"/>
 
             <Button
+                android:onClick="ready"
                 android:layout_width="102dp"
                 android:layout_height="wrap_content"
                 android:background="@color/blue"

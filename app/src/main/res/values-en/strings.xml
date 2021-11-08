@@ -24,5 +24,6 @@
     <string name="yourTurn">, it\'s your turn</string>
     <string name="wait">, you have to wait your turn</string>
     <string name="game_board">Game board</string>
+    <string name="nextTurn">Next</string>
 
 </resources>

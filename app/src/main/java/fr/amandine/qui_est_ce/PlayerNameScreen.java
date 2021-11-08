@@ -33,5 +33,9 @@ public class PlayerNameScreen extends AppCompatActivity {
         tvName1.setText(strPlayer1+",");
         tvName2.setText(strPlayer2+",");
     }
+    public void ready(View v){
+        Intent intent = new Intent(this, PlayerBoardGame.class);
+        startActivity(intent);
+    }
 
 }

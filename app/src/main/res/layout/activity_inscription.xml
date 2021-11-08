@@ -89,11 +89,11 @@
             <Button
                 android:layout_width="102dp"
                 android:layout_height="wrap_content"
-                android:background="@color/blue"
-                android:text="@string/play"
-                android:textColor="@color/white"
                 android:layout_marginHorizontal="24dp"
-                android:onClick="playNewGame"/>
+                android:background="@color/blue"
+                android:onClick="playNewGame"
+                android:text="@string/play"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

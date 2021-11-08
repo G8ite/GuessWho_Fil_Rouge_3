@@ -24,6 +24,6 @@
     <string name="yourTurn">, es tu turno de jugar</string>
     <string name="wait">, tienes que esperar tu turno</string>
     <string name="game_board">Tablero de juego</string>
-
+    <string name="nextTurn">Próximo</string>
 
 </resources>
