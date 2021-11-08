@@ -21,10 +21,11 @@
     <string name="player1EqualPlayer2">Le premier et le deuxième humain ne peuvent pas avoir le même nom</string>
     <string name="toYou">À vous de jouer</string>
     <string name="ready">Je suis prêt.e</string>
-    <string name="yourTurn">, c\'est à ton tour de jouer</string>
-    <string name="wait">, tu dois attendre ton tour</string>
+    <string name="yourTurn"> c\'est à ton tour de jouer</string>
+    <string name="wait"> tu dois attendre ton tour</string>
     <string name="game_board">Plateau de jeu</string>
     <string name="nextTurn">Suivant</string>
-
+    <string name="yourImg"> voici ton personnage</string>
+    <string name="ok">OK</string>
 
 </resources>

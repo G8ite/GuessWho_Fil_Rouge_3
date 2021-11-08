@@ -21,9 +21,10 @@
     <string name="player1EqualPlayer2">The first and the second human cannot have the same name</string>
     <string name="toYou">It\'s your turn</string>
     <string name="ready">I\'m ready</string>
-    <string name="yourTurn">, it\'s your turn</string>
-    <string name="wait">, you have to wait your turn</string>
+    <string name="yourTurn"> it\'s your turn</string>
+    <string name="wait"> you have to wait your turn</string>
     <string name="game_board">Game board</string>
     <string name="nextTurn">Next</string>
-
+    <string name="yourImg"> here is your character</string>
+    <string name="ok">OK</string>
 </resources>
