@@ -1,6 +1,7 @@
 package fr.amandine.qui_est_ce;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.ContextThemeWrapper;
 
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
@@ -37,6 +38,7 @@ public class PlayerBoardGame extends AppCompatActivity {
         for (int i=0; i<6;i++){
             //Créer le layout de ligne
             LinearLayout linearLayout = new LinearLayout(this);
+            linearLayout.setPadding(0,10,0,10);
             //Gérer ses paramètres layout_width et layout_height
             LinearLayout.LayoutParams linearParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
             //Centrer le layout
@@ -46,7 +48,7 @@ public class PlayerBoardGame extends AppCompatActivity {
             //Une seconde bouble qui permet de créer les images dans les lignes
             for(int j=0;j<3;j++){
                 //On crée le layout d'image
-                LinearLayout buttonLayout = new LinearLayout(this);
+                LinearLayout buttonLayout = new LinearLayout(ContextThemeWrapper(this, R.style.cardCase));
                 // On gère sa largeur et sa hauteur
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(300,300);
                 //Permet de générer un chiffre aléatoire en fonction du nombre d'images stockées
@@ -72,12 +74,14 @@ public class PlayerBoardGame extends AppCompatActivity {
                     // Le layout devient cliquable
                     buttonLayout.setOnClickListener(new View.OnClickListener() {
                         public void onClick(View v) {
-                            if (clickCount == 0) {
-                                buttonLayout.setBackground(getDrawable(R.drawable.card));
-                                clickCount++;
-                            } else {
+                            if (clickCount > 0) {
+                                clickCount=0;
                                 buttonLayout.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
-                                clickCount--;
+
+
+                            } else {
+                                clickCount++;
+                                buttonLayout.setBackground(getDrawable(R.drawable.card));
                             }
                         }
                     });
