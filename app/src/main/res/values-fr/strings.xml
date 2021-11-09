@@ -27,5 +27,5 @@
     <string name="nextTurn">Suivant</string>
     <string name="yourImg"> voici ton personnage</string>
     <string name="ok">OK</string>
-
+    <string name="sameLang">Vous êtes déja en français</string>
 </resources>

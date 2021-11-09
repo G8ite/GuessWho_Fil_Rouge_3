@@ -12,6 +12,7 @@ public class PlayerNameScreen extends AppCompatActivity {
 
     //Données membres
     int count = 1;
+    public final static String PLAYER_1_NAME = "Player1Name";
     private TextView tvName1 = null;
     private TextView tvName2 = null;
     private String strPlayer1 = "";
@@ -34,7 +35,8 @@ public class PlayerNameScreen extends AppCompatActivity {
         tvName2.setText(strPlayer2+",");
     }
     public void ready(View v){
-        Intent intent = new Intent(this, PlayerBoardGame.class);
+        Intent intent = new Intent(this, PersonnageActivity.class);
+        intent.putExtra(strPlayer1, this.strPlayer1);
         startActivity(intent);
     }
 

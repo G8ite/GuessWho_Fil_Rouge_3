@@ -69,8 +69,7 @@
           android:background="@color/pink"
           android:text="@string/returnP"
           android:textColor="@color/white"
-          android:layout_marginHorizontal="24dp"
-          android:onClick="clicReturn"/>
+          android:layout_marginHorizontal="24dp"/>
 
     </LinearLayout>
 

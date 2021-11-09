@@ -17,8 +17,4 @@ public class OptionsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LanguageActivity.class);
         startActivity(intent);
     }
-    public void clicReturn(View v){
-        //Toast.makeText(getBaseContext(), R.string.cancel, Toast.LENGTH_LONG).show();
-        finish();
-    }
 }
