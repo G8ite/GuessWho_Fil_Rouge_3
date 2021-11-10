@@ -11,7 +11,7 @@
     <string name="play">Jugar</string>
     <string name="returnP">Regreso</string>
     <string name="language">Idiomas</string>
-    <string name="display">Monitor</string>
+    <string name="display">Modo Noche/Dia</string>
     <string name="fr">Francés</string>
     <string name="en">Inglés</string>
     <string name="es">Español</string>
@@ -28,5 +28,7 @@
     <string name="yourImg"> aqui esta tu personaje</string>
     <string name="ok">OK</string>
     <string name="sameLang">Ya estas en español</string>
+    <string name="gg">Bien hecho !!</string>
+    <string name="replay">Repetición</string>
 
 </resources>

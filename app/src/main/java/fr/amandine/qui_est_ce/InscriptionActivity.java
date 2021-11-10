@@ -3,6 +3,7 @@ package fr.amandine.qui_est_ce;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -23,6 +24,13 @@ public class InscriptionActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_inscription);
+
+        // On réinitialise le compteur de tour de jeu en l'envoyant dans les préférences
+        SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, MODE_PRIVATE);
+        SharedPreferences.Editor edCountTurn = countTurn.edit();
+        edCountTurn.putString("Tour de Jeu", "1").apply();
+
+
     }
 
     /**
@@ -55,8 +63,12 @@ public class InscriptionActivity extends AppCompatActivity {
     public void playNewGame(View v){
         if(okToPlay()== true){
             Intent intent = new Intent(this, PlayerNameScreen.class );
-            intent.putExtra(PLAYER_1_NAME, this.strPlayer1);
-            intent.putExtra(PLAYER_2_NAME, this.strPlayer2);
+
+            SharedPreferences playerOne = getSharedPreferences(MainActivity.PLAYERS, MODE_PRIVATE);
+            SharedPreferences.Editor edPlayerOne = playerOne.edit();
+            edPlayerOne.putString("Joueur1", strPlayer1).apply();
+            edPlayerOne.putString("Joueur2", strPlayer2).apply();
+
             startActivity(intent);
         }
     }

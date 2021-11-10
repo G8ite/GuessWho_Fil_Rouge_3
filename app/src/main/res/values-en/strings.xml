@@ -11,7 +11,7 @@
     <string name="play">Play</string>
     <string name="returnP">Return</string>
     <string name="language">Languages</string>
-    <string name="display">Display</string>
+    <string name="display">Day/Night Mode</string>
     <string name="fr">French</string>
     <string name="en">English</string>
     <string name="es">Spanish</string>
@@ -28,4 +28,6 @@
     <string name="yourImg"> here is your character</string>
     <string name="ok">OK</string>
     <string name="sameLang">You already are in english</string>
+    <string name="gg">Congratulations !!</string>
+    <string name="replay">Replay</string>
 </resources>

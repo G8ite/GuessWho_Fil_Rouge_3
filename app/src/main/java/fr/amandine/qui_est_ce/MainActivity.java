@@ -18,7 +18,9 @@ public class MainActivity extends AppCompatActivity {
 
     //Données membres
 
-    public final static String MY_FAY_LANGUAGES = "My_fav_Languages";
+    public final static String MY_FAY_LANGUAGES = "My_Fav_Languages";
+    public final static String PLAYERS = "Players";
+    public final static String GAME_TURN = "Game_Turn";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,14 @@ public class MainActivity extends AppCompatActivity {
 
         loadLocale();
         setContentView(R.layout.activity_main);
+
+        // Effacer les joueurs pour être sur de reprendre à 0
+        SharedPreferences playerPreferences = getSharedPreferences(PLAYERS, MODE_PRIVATE);
+        playerPreferences.edit().remove("Joueur1").commit();
+        playerPreferences.edit().remove("Joueur2").commit();
+        playerPreferences.edit().remove("Joueur 1 charac").commit();
+        playerPreferences.edit().remove("Joueur 2 charac").commit();
+
     }
     public void newGame(View v){
         Intent intent = new Intent(this, InscriptionActivity.class);

@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.ContextThemeWrapper;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
@@ -150,5 +153,22 @@ public class PlayerBoardGame extends AppCompatActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item){
         Toast.makeText(this,""+item.getTitle(), Toast.LENGTH_LONG).show();
         return super.onContextItemSelected(item);
+    }
+
+    public void nextTurn(View v){
+        SharedPreferences countTurn = getSharedPreferences("Game_Turn", Activity.MODE_PRIVATE);
+        String sCount = countTurn.getString("Tour de Jeu", "");
+        int count = Integer.valueOf(sCount);
+        count++;
+        SharedPreferences.Editor edCountTurn = countTurn.edit();
+        String newCount = Integer.toString(count);
+        Log.i("Count", newCount);
+        edCountTurn.putString("Tour de Jeu", newCount).apply();
+        Intent intent = new Intent(this, PlayerBoardGame.class);
+        startActivity(intent);
+        if(count == 3){
+            Intent intent1 = new Intent(this, GoalActivity.class);
+            startActivity(intent1);
+        }
     }
 }

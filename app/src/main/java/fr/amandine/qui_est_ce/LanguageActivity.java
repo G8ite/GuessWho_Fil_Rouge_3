@@ -37,7 +37,7 @@ public class LanguageActivity extends AppCompatActivity {
                 Configuration config = new Configuration();
                 config.locale = locale;
 
-                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.My_Fav_Languages, MODE_PRIVATE);
+                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.MY_FAY_LANGUAGES, MODE_PRIVATE);
                 String language = myFavLanguages.getString("Language", "");
 
                 if (!language.equals(strLocale)){
@@ -62,7 +62,7 @@ public class LanguageActivity extends AppCompatActivity {
                 Configuration config = new Configuration();
                 config.locale = locale;
 
-                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.My_Fav_Languages, MODE_PRIVATE);
+                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.MY_FAY_LANGUAGES, MODE_PRIVATE);
                 String language = myFavLanguages.getString("Language", "");
 
                 if (!language.equals(strLocale)){
@@ -87,7 +87,7 @@ public class LanguageActivity extends AppCompatActivity {
                 Configuration config = new Configuration();
                 config.locale = locale;
 
-                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.My_Fav_Languages, MODE_PRIVATE);
+                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.MY_FAY_LANGUAGES, MODE_PRIVATE);
                 String language = myFavLanguages.getString("Language", "");
 
                 if (!language.equals(strLocale)){
@@ -112,7 +112,7 @@ public class LanguageActivity extends AppCompatActivity {
                 Configuration config = new Configuration();
                 config.locale = locale;
 
-                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.My_Fav_Languages, MODE_PRIVATE);
+                SharedPreferences myFavLanguages = getSharedPreferences(MainActivity.MY_FAY_LANGUAGES, MODE_PRIVATE);
                 String language = myFavLanguages.getString("Language", "");
 
                 if (!language.equals(strLocale)){
