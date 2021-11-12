@@ -18,10 +18,10 @@ public class DataBaseMgr extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db){
         String strSql = "CREATE TABLE "+NAME_TABLE_1+ " ( " +
-                "  idImg int(3) AUTO_INCREMENT, " +
-                "  nameImg varchar(20) NOT NULL, " +
-                "  etatImg int(1) NOT NULL, " +
-                "  PRIMARY KEY (`idImg`) )";
+                "  idImg INT PRIMARY KEY AUTOINCREMENT, " +
+                "  nameImg TEXT NOT NULL, " +
+                "  etatImg INT NOT NULL " +
+                " )";
 
         db.execSQL(strSql);
 
