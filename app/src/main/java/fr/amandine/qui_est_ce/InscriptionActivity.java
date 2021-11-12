@@ -28,7 +28,7 @@ public class InscriptionActivity extends AppCompatActivity {
         // On réinitialise le compteur de tour de jeu en l'envoyant dans les préférences
         SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, MODE_PRIVATE);
         SharedPreferences.Editor edCountTurn = countTurn.edit();
-        edCountTurn.putString("Tour de Jeu", "1").apply();
+        edCountTurn.putString("Tour de Jeu", "0").apply();
 
 
     }
