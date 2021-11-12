@@ -45,18 +45,93 @@ public class PlayerBoardGame extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_board_game);
 
-        dataBaseMgr = new DataBaseMgr(this);
-
-        dataBaseMgr.insertImg("blibli", 1);
-        dataBaseMgr.close();
-
         // Récupérer le Layout qui contiendra notre tableau d'images
         LinearLayout conLinearLayout = findViewById(R.id.linearContainer);
 
-        //Créer un tableau qui contiendra les identifiants des images déjà dans le tableau
+        //Créer un tableau qui contiendra les numéros des images déjà dans le tableau
         List<String> lNumber = new ArrayList<String>();
-        //Créer un compteur pour changer de background au click
+        //Créer un tableau qui contient les noms d'images
+        List<String> lImgName = new ArrayList<>();
 
+        //Instanciation de la base de données
+        dataBaseMgr = new DataBaseMgr(this);
+
+        //Test de le fonction insert
+        //dataBaseMgr.insertImg("blibli", 1);
+
+        // Récupérer le tour de jeu
+        SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
+        String sTurn = countTurn.getString("Tour de Jeu", "1");
+        int turn = Integer.valueOf(sTurn);
+
+        //Vérifier le tour de jeu pour savoir s'il faut créer ou charger le plateau de jeu
+        //et s'il faut le faire pour le joueur 1 ou pour le joueur 2
+
+        if(turn == 1) {
+            //C'est le premier tour de jeu on crée le plateau de J1
+            for (int i = 0; i < 15; i++) {
+                //Il faut générer 16 noms d'image aléatoires à insérer dans la base de données
+
+                //Permet de générer un chiffre aléatoire en fonction du nombre d'images stockées
+                double dNumber = randomNumberGenerator(66);
+
+                //Format le double en string en enlevant les nombres après la virgule
+                DecimalFormat f = new DecimalFormat();
+                f.setMaximumFractionDigits(0);
+                String sNumber = f.format(dNumber);
+
+                //Créer un booléen qui permet de vérifier si l'identifiant pris au hasard n'est pas déjà présent dans la grille
+                boolean verify = lNumber.contains(sNumber);//il faudra qu'il contienne pas le nombre mais le nom de l'image en entier
+                //Si il y est déjà
+                if (verify) {
+                    //Je décrémente mon compteur pour qu'il y ait bien le bon nombre d'images par ligne
+                    i--;
+                } else {// Si elle n'y est pas
+                    // je l'ajoute à la liste
+                    lNumber.add(sNumber);
+                    // j'écris le chemin pour récupérer mon image
+                    String imgName = "person" + sNumber;
+                    //J'ajoute le nom des images à une liste
+                    lImgName.add(imgName);
+                    //Log.i("PlayerBoard",imgName); // permet de vérifier que ce chemin est bien écrit
+                    //J'ajoute chaque image à ma BDD à l'état 1 (face visible)
+                    dataBaseMgr.insertImg(imgName, 1);
+                }
+
+                //Récupérer les noms des joueurs
+                SharedPreferences players = getSharedPreferences(MainActivity.PLAYERS, Activity.MODE_PRIVATE);
+
+                //Je récupère l'image choisie pour J1
+                String strPlayer1 = players.getString("Joueur1", "");
+                //Je l'insère dans ma BDD
+                dataBaseMgr.insertImg(strPlayer1, 1);
+                //Je l'ajoute à ma liste d'images
+                lImgName.add(strPlayer1);
+                //Je récupère l'image choisie pour J2
+                String strPlayer2 = players.getString("Joueur2", "");
+                //Je l'insère dans ma BDD
+                dataBaseMgr.insertImg(strPlayer2, 1);
+                //Je l'ajoute à ma liste d'images
+                lImgName.add(strPlayer2);
+                //J'ai donc récupéré toutes les images présentes dans mon plateau de jeu
+            }
+        }
+        else if(turn == 2) {
+            //C'est le premier tour de jeu on crée le plateau de J2
+
+            //récupérer les entrées de la liste lImgName pour la charger dans ma BDD
+            for (int j = 0; j < 19; j++) {
+                String str = lImgName.get(j);
+                //les insérer dans la base de données
+                dataBaseMgr.insertImg(str, 1);
+            }
+        }
+        else if(turn%2 == 0){
+            //C'est un tour de chiffre pair donc on charge le plateau de J2
+        }
+        else{
+            //C'est un tour de chiffre impair différent de 1 alors on charge le plateau de J1
+        }
         //Une première boucle qui permet de créer les lignes de notre grille
         for (int i=0; i<6;i++){
 
@@ -72,8 +147,9 @@ public class PlayerBoardGame extends AppCompatActivity {
 
             //On ajoute le layout fraichement créé à notre layout container
             conLinearLayout.addView(linearLayout, linearParams);
+            //Boucle qui va créer et insérer les images dans ma base de données
 
-            //Une seconde bouble qui permet de créer les images dans les lignes
+            //Une seconde boucle qui permet de créer les images dans les lignes
             for(int j=0;j<3;j++){
 
                 //On crée le layout d'image
@@ -82,28 +158,11 @@ public class PlayerBoardGame extends AppCompatActivity {
                 // On gère sa largeur et sa hauteur
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(300,300);
 
-                //Permet de générer un chiffre aléatoire en fonction du nombre d'images stockées
-                double dNumber = Math.round(Math.random()*66);
+                String background = "person1";
+                String path = "@drawable"+background;
 
-                //Format le double en string en enlevant les nombres après la virgule
-                DecimalFormat f = new DecimalFormat();
-                f.setMaximumFractionDigits(0);
-                String sNumber = f.format(dNumber);
-
-                //Créer un booléen qui permet de vérifier si l'identifiant pris au hasard n'est pas déjà présent dans la grille
-                //Si il y est déjà
-                boolean verify = lNumber.contains(sNumber);//il faudra qu'il contienne pas le nombre mais le nom de l'image en entier
-                //Je décrémente mon compteur pour qu'il y ait bien le bon nombre d'images par ligne
-                if(verify){
-                    j--;
-                }
-                else{// Si elle n'y est pas
-                    lNumber.add(sNumber); // je l'ajoute à la liste //il faudra qu'il contienne pas le nombre mais le nom de l'image en entier
-                    String imgName="@drawable/person"+sNumber; // j'écris le chemin pour récupérer mon image
-                    Log.i("PlayerBoard",imgName); // permet de vérifier que ce chemin est bien écrit
-
-                    //L'image est récupérée et placée en background sur le layout
-                    buttonLayout.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
+                //L'image est récupérée et placée en background sur le layout
+                buttonLayout.setBackground(getDrawable(getResources().getIdentifier(path, null, getPackageName())));
 
                     //Permettre à chaque image d'ouvrir un menu contextuel
                     registerForContextMenu(buttonLayout);
@@ -121,7 +180,7 @@ public class PlayerBoardGame extends AppCompatActivity {
 
                             if (clickCount > 0) {
                                 clickCount=0;
-                                buttonLayout.setBackground(getDrawable(getResources().getIdentifier(imgName, null, getPackageName())));
+                                buttonLayout.setBackground(getDrawable(getResources().getIdentifier(path, null, getPackageName())));
                             } else {
                                 clickCount++;
                                 buttonLayout.setBackground(getDrawable(R.drawable.card));
@@ -134,20 +193,16 @@ public class PlayerBoardGame extends AppCompatActivity {
                     linearLayout.addView(buttonLayout,params2);
                 }
             }
-
-        }
+            //Fermeture de la connection avec la base de données
+            dataBaseMgr.close();
 
         //Concernant le context menu
 
     }
 
-    private String imgNameGenerator() {
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("1", "demo");
-        map.put("2", "fdemo");
-
-        String bliblu = "test";
-        return bliblu;
+    private double randomNumberGenerator(int max) {
+        double dNumber = Math.round(Math.random() * max);
+        return dNumber;
     }
     /**
      * Permet de créer un menu contextuel
@@ -178,7 +233,7 @@ public class PlayerBoardGame extends AppCompatActivity {
         count++;
         SharedPreferences.Editor edCountTurn = countTurn.edit();
         String newCount = Integer.toString(count);
-        Log.i("Count", newCount);
+        //Log.i("Count", newCount);
         edCountTurn.putString("Tour de Jeu", newCount).apply();
         Intent intent = new Intent(this, PlayerBoardGame.class);
         startActivity(intent);

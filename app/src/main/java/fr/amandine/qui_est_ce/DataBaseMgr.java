@@ -16,11 +16,14 @@ public class DataBaseMgr extends SQLiteOpenHelper {
     }
 
     @Override
+    /**
+     * Permet de créer une table gameboard dans la basse de données Game.db
+     */
     public void onCreate(SQLiteDatabase db){
         String strSql = "CREATE TABLE "+NAME_TABLE_1+ " ( " +
-                "  idImg INT PRIMARY KEY AUTOINCREMENT, " +
+                "  idImg INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "  nameImg TEXT NOT NULL, " +
-                "  etatImg INT NOT NULL " +
+                "  etatImg INTEGER NOT NULL " +
                 " )";
 
         db.execSQL(strSql);
@@ -28,6 +31,12 @@ public class DataBaseMgr extends SQLiteOpenHelper {
         //Log.i(TAG, "oncreate ok");
     }
 
+    /**
+     * Permet de la mise à jour de la base de données
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         String strSql = "DROP TABLE gameboard";
@@ -37,11 +46,33 @@ public class DataBaseMgr extends SQLiteOpenHelper {
         //Log.i(TAG, "onupgrade ok");
     }
 
+    /**
+     * Permet d'insérer une nouvelle case dans la base de données en donnant son image et son état
+     * @param str
+     * @param etat
+     */
     public void insertImg(String str, int etat){
         String strSql = "INSERT INTO " + NAME_TABLE_1+ "(nameImg , etatImg) VALUES"
-                +"( "+str+","+ etat + " );";
+                +"( \""+str+"\","+ etat + " );";
         this.getWritableDatabase().execSQL(strSql);
 
         //Log.i(TAG, "insertImg ok");
     }
+
+    /*public String selectImg(int id){
+        String strSql = "SELECT * FROM "+NAME_TABLE_1+" WHERE idImg = "+id;
+        String result = this.getWritableDatabase().execSQL(strSql);
+    }*/
+    /**
+     * Fonction permettant de changer l'état d'une case lorsqu'elle est cliquée en fonction de son nom
+     * @param etat
+     * @param str
+     */
+    public void changeStat(int etat, String str){
+        String strSql = "UPDATE "+NAME_TABLE_1+" SET etatImg = "+etat+" WHERE nameImge = \""+str+"\"";
+        this.getWritableDatabase().execSQL(strSql);
+
+        //Log.i(TAG, "changeStat ok");
+    }
+
 }
