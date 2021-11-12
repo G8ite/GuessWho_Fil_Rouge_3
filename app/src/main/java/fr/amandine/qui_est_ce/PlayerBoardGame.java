@@ -50,55 +50,39 @@ public class PlayerBoardGame extends AppCompatActivity {
         // Récupérer le Layout qui contiendra notre tableau d'images
         LinearLayout conLinearLayout = findViewById(R.id.linearContainer);
 
-        /*
-        //Créer un tableau qui contiendra les numéros des images déjà dans le tableau
-        List<String> lNumber = new ArrayList<String>();
-        //Créer un tableau qui contient les noms d'images
-        ArrayList<String> lImgName = new ArrayList<>();
-
-        //Instanciation de la base de données
-        dataBaseMgr = new DataBaseMgr(this);
-
-        //Test de le fonction insert
-        //dataBaseMgr.insertImg("blibli", 1);
-
-        // Récupérer le tour de jeu
+        // On récupère la liste des noms des id, noms d'image, etat, joueur en fonction du joueur
+        //On récupère le tour de jeu
         SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
         String sTurn = countTurn.getString("Tour de Jeu", "1");
         int turn = Integer.valueOf(sTurn);
+        Log.i("Turn : ", sTurn);
 
-        //C'est un tour de chiffre impair différent de 1 alors on charge le plateau de J1
-        Log.i("Image Joueur ", "ca continue");
+        //Je crée une liste qui accueillera mes toString
+        List<String> lImgs = new ArrayList<>();
 
-        //Vérifier le tour de jeu pour savoir s'il faut créer ou charger le plateau de jeu
-        //et s'il faut le faire pour le joueur 1 ou pour le joueur 2
-        //Initier une liste qui contiendra les noms des images, l'état et le joueur
-        List<String> imgName = new ArrayList<String>();
+        //Initier une instance de la BDD
+        dataBaseMgr = new DataBaseMgr(this);
 
-        Log.i("Img Joueur - t1", sTurn);
-
-        if(turn == 3) {
-            Log.i("Img Joueur - t2", sTurn);
-            List<ImageCase> imgs = dataBaseMgr.selectImg(1);
-            for (ImageCase img : imgs ){
-                Log.i("Img Joueur", img.toString());
-                imgName.add(img.toString());
+        //Si le tour de jeu est strictement divisible par 2, c'est au tour du joueur 2
+        if(turn%2 == 0){
+            //On récupère la liste des images en fonction du joueur 2
+            List<ImageCase> imgs = dataBaseMgr.selectImg(2);
+            for(ImageCase img: imgs){
+                lImgs.add(img.toString());
+                Log.i("Contenu BDD J2", img.toString());
             }
-            Log.i("Img Joueur", "tour 1 j 1");
         }
-        else if(turn == 4){
-            Log.i("Img Joueur - t3", sTurn);
-            /*List<ImageCase> imgs = dataBaseMgr.selectImg(2);
-            for (ImageCase img : imgs ){
-                Log.i("Img Joueur", img.toString());
-                imgName.add(img.toString());
-            }
-            Log.i("Img Joueur", "tour 1 j 2");
-        }
+        //Sinon c'est au joueur 1
         else{
-            Log.i("Img Joueur", "DAK");
+            //On récupère la liste des images en fonction du joueur 1
+            List<ImageCase> imgs = dataBaseMgr.selectImg(1);
+            for(ImageCase img: imgs){
+                lImgs.add(img.toString());
+                Log.i("Contenu BDD J1", img.toString());
+            }
+        }
 
-        }*/
+        dataBaseMgr.close();
         //Une première boucle qui permet de créer les lignes de notre grille
         for (int i=0; i<6;i++){
 
@@ -124,7 +108,6 @@ public class PlayerBoardGame extends AppCompatActivity {
 
                 // On gère sa largeur et sa hauteur
                 LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(300,300);
-
                 String background = "person1";
                 String path = "@drawable/"+background;
 
@@ -197,7 +180,7 @@ public class PlayerBoardGame extends AppCompatActivity {
         //Permet d'arrêter la partie sans gagnants
 
         Intent intent = new Intent();
-        if(count == 3){
+        if(count == 6){
             intent = new Intent(this, GoalActivity.class);
 
         }

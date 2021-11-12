@@ -75,9 +75,8 @@ public class DataBaseMgr extends SQLiteOpenHelper {
         Cursor c = this.getReadableDatabase().rawQuery(strSql, null);
         c.moveToFirst();
         while(!c.isAfterLast()){
-           ImageCase img = new ImageCase(c.getString(1), c.getInt(2), c.getInt(3));
+           ImageCase img = new ImageCase(c.getInt(0),c.getString(1), c.getInt(2), c.getInt(3));
            imgs.add(img);
-           Log.i("Blabla", img.toString());
            c.moveToNext();
         }
         c.close();

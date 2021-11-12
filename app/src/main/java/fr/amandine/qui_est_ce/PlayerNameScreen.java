@@ -55,16 +55,32 @@ public class PlayerNameScreen extends AppCompatActivity {
         if(turn%2 != 0){
             tvName1.setText(strPlayer1+",");
             tvName2.setText(strPlayer2+",");
+            Log.i("Joueur 1 affichage", strPlayer1);
         }
         else{
+            Log.i("Joueur 1 affichage", strPlayer2);
             tvName1.setText(strPlayer2+",");
             tvName2.setText(strPlayer1+",");
         }
 
     }
     public void ready(View v){
-        Intent intent = new Intent(this, PersonnageActivity.class);
-        startActivity(intent);
+        //Récupérer le tour de jeu
+
+        SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
+        String sTurn = countTurn.getString("Tour de Jeu", "1");
+        int turn = Integer.valueOf(sTurn);
+        // si le tour de jeu est inférieur à 3, on charge les pages de personnages
+        if(turn < 3){
+            Intent intent = new Intent(this, PersonnageActivity.class);
+            startActivity(intent);
+        }
+        //Sinon, on charge le plateau de jeu
+        else{
+            Intent intent = new Intent(this, PlayerBoardGame.class);
+            startActivity(intent);
+        }
+
     }
 
 }
