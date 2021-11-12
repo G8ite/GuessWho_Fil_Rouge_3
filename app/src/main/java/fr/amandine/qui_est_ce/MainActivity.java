@@ -12,6 +12,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {

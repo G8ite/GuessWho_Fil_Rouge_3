@@ -25,13 +25,7 @@ public class PersonnageActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personnage);
 
-        //Permet de générer un chiffre aléatoire en fonction du nombre d'images stockées
-        double dNumber = Math.round(Math.random()*66);
-
-        //Format le double en string en enlevant les nombres après la virgule
-        DecimalFormat f = new DecimalFormat();
-        f.setMaximumFractionDigits(0);
-        String sNumber = f.format(dNumber);
+        String sNumber = randomNumber();
 
         ImageView character = findViewById(R.id.perso);
 
@@ -42,6 +36,7 @@ public class PersonnageActivity extends AppCompatActivity {
         SharedPreferences.Editor edPlayerChar = players.edit();
         //Vérifier si un joueur 1 a déjà été créé et agir en conséquences
         if(players.contains("Joueur 1 charac")){
+
             edPlayerChar.putString("Joueur 2 charac",imgName).apply();
             intent = new Intent(this, PlayerBoardGame.class);
         }
@@ -62,5 +57,16 @@ public class PersonnageActivity extends AppCompatActivity {
     }
     public void ready(View v){
         startActivity(intent);
+    }
+    public String randomNumber() {
+        //Permet de générer un chiffre aléatoire en fonction du nombre d'images stockées
+        double dNumber = Math.round(Math.random()*66);
+
+        //Format le double en string en enlevant les nombres après la virgule
+        DecimalFormat f = new DecimalFormat();
+        f.setMaximumFractionDigits(0);
+        String sNumber = f.format(dNumber);
+
+        return sNumber;
     }
 }

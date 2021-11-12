@@ -51,6 +51,11 @@
                     android:background="@color/blue"
                     android:textColor="@color/white"
                     android:onClick="nextTurn" />
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="AjouterTest"
+                    android:onClick="test"/>
             </LinearLayout>
         </LinearLayout>
 

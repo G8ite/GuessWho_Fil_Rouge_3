@@ -24,13 +24,16 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class PlayerBoardGame extends AppCompatActivity {
 
     //Données membres
     int clickCount = 0;
     int idCount = 0;
+    private DataBaseMgr dataBaseMgr;
 
     //Fonctions
 
@@ -41,6 +44,11 @@ public class PlayerBoardGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_board_game);
+
+        dataBaseMgr = new DataBaseMgr(this);
+
+        dataBaseMgr.insertImg("blibli", 1);
+        dataBaseMgr.close();
 
         // Récupérer le Layout qui contiendra notre tableau d'images
         LinearLayout conLinearLayout = findViewById(R.id.linearContainer);
@@ -84,13 +92,13 @@ public class PlayerBoardGame extends AppCompatActivity {
 
                 //Créer un booléen qui permet de vérifier si l'identifiant pris au hasard n'est pas déjà présent dans la grille
                 //Si il y est déjà
-                boolean verify = lNumber.contains(sNumber);
+                boolean verify = lNumber.contains(sNumber);//il faudra qu'il contienne pas le nombre mais le nom de l'image en entier
                 //Je décrémente mon compteur pour qu'il y ait bien le bon nombre d'images par ligne
                 if(verify){
                     j--;
                 }
                 else{// Si elle n'y est pas
-                    lNumber.add(sNumber); // je l'ajoute à la liste
+                    lNumber.add(sNumber); // je l'ajoute à la liste //il faudra qu'il contienne pas le nombre mais le nom de l'image en entier
                     String imgName="@drawable/person"+sNumber; // j'écris le chemin pour récupérer mon image
                     Log.i("PlayerBoard",imgName); // permet de vérifier que ce chemin est bien écrit
 
@@ -133,6 +141,14 @@ public class PlayerBoardGame extends AppCompatActivity {
 
     }
 
+    private String imgNameGenerator() {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("1", "demo");
+        map.put("2", "fdemo");
+
+        String bliblu = "test";
+        return bliblu;
+    }
     /**
      * Permet de créer un menu contextuel
      * @param menu
@@ -171,4 +187,5 @@ public class PlayerBoardGame extends AppCompatActivity {
             startActivity(intent1);
         }
     }
+
 }
