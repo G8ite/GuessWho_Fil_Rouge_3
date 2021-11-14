@@ -21,30 +21,43 @@ public class PersonnageActivity extends AppCompatActivity {
     public Intent intent = null;
     //Fonctions
     @Override
+    /**
+     * est appelée à la création de PersonnageActivity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personnage);
 
         //Données membres
+        //On récupère le textview dans lequel on affichera le nom du joueur
+        //dont l'image est associée
         TextView tvName = (TextView) findViewById(R.id.tName);
+        //On instancie DataBaseMgr pour manipuler la BDD -> la table des imageCase
         DataBaseMgr dataBaseMgr;
 
+        //On récupère l'imageView qui contiendra l'image choisie pour le joueur
         ImageView character = findViewById(R.id.perso);
+        //On récupère les données des joueurs stockées dans les préférences
         SharedPreferences players = getSharedPreferences(MainActivity.PLAYERS, Activity.MODE_PRIVATE);
 
+        //On initie une String qui contiendra le nom du joueur
         String strPlayer = "";
 
-        //Récupérer le tour de jeu
+        //Récupérer les préférences concernant la partie
         SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
+        //On récupère le tour de jeu
         String sTurn = countTurn.getString("Tour de Jeu", "1");
+        //On le transforme en entier pour l'incrémenter
         int turn = Integer.valueOf(sTurn);
-        Log.i("Turn : ", sTurn);
+
+        //Log.i("Turn : ", sTurn);
 
         //Gérer le tour 1 du joueur 1
+        //C'est le premier tour de jeu
         if(turn == 1){
-
             //Permet de générer un chiffre aléatoire en fonction du nombre d'images stockées
             double dNumber = Math.round(Math.random() * 66);
+
             //Format le double en string en enlevant les nombres après la virgule
             DecimalFormat f = new DecimalFormat();
             f.setMaximumFractionDigits(0);
@@ -53,7 +66,7 @@ public class PersonnageActivity extends AppCompatActivity {
             //Construire le nom de l'image du joueur 1
             strPlayer = "person"+sNumber;
 
-            //Ajouter ce nom à mes préférences
+            //Ajouter ce nom d'image aux préférences du joueur
             SharedPreferences.Editor edPlayerOne = players.edit();
             edPlayerOne.putString("Joueur 1 charac", strPlayer).apply();
 
@@ -70,6 +83,7 @@ public class PersonnageActivity extends AppCompatActivity {
 
         }
         //Gérer le tour 1 du joueur 2 = générer les cases des boardGame
+        //C'est le deuxième tour sur cette page
         else if(turn == 2) {
             //Créer un tableau qui contient les noms d'images
             ArrayList<String> lImgName = new ArrayList<>();
@@ -129,6 +143,7 @@ public class PersonnageActivity extends AppCompatActivity {
                 }
                 //sinon
                 else {
+                    //On décrémente pour avoir le bon nombre d'images
                     i--;
                 }
             }
@@ -153,13 +168,23 @@ public class PersonnageActivity extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Permet de passer à l'activité suivante
+     * @param v
+     */
     public void ready(View v){
         //Je peux passer à l'activité suivante
         startActivity(intent);
     }
 
+    /**
+     * Permet de retourner à l'acceuil et d'écraser la pile d'activités
+     * @param v
+     */
     public void clicQuit(View v){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

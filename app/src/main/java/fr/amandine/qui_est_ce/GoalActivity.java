@@ -12,18 +12,28 @@ import android.widget.TextView;
 public class GoalActivity extends AppCompatActivity {
 
     @Override
+    /**
+     * Est appellée à la création de GoalActivity
+     */
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goal);
 
+        //Récupérer le textview qui contiendra le nom du vainqueur
         TextView winner = findViewById(R.id.winner);
 
         //Je récupère le nom du gagnant
         SharedPreferences winners = getSharedPreferences(MainActivity.PLAYERS, Activity.MODE_PRIVATE);
         String winnerName = winners.getString("Gagnant", "");
 
+        //On ajouter ce nom au textView
         winner.setText(winnerName);
     }
+
+    /**
+     * Permet de faire du ménage dans les paramètres de jeu et de retourner à l'accueil
+     * @param v
+     */
     public void clickQuit(View v){
         //Stocker le gagnant
 
@@ -38,6 +48,11 @@ public class GoalActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Permet de relancer la partie et d'aller à l'activité servant à récupérer les noms de joueurs
+     * @param v
+     */
     public void clickReplay(View v){
         // Effacer les joueurs pour être sur de reprendre à 0 la prochaine fois
         SharedPreferences playerPreferences = getSharedPreferences(MainActivity.PLAYERS, MODE_PRIVATE);
@@ -57,6 +72,7 @@ public class GoalActivity extends AppCompatActivity {
 
         //Retour à l'inscription
         Intent intent1 = new Intent(this, InscriptionActivity.class);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent1);
     }
 }

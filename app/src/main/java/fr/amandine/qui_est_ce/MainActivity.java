@@ -24,6 +24,9 @@ public class MainActivity extends AppCompatActivity {
     public final static String GAME_TURN = "Game_Turn";
 
     @Override
+    /**
+     * Est appelé à la création de MainActivity
+     */
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
@@ -44,24 +47,47 @@ public class MainActivity extends AppCompatActivity {
         this.deleteDatabase("Game.db");
 
     }
+
+    /**
+     * Permet de lancer une nouvelle partie
+     * @param v
+     */
     public void newGame(View v){
+        //Intent qui commence la partie et envoie vers la page d'inscription des noms de joueurs
         Intent intent = new Intent(this, InscriptionActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Permet d'aller sur la page des options
+     * @param v
+     */
     public void optionPage(View v){
+        //Intent qui envoie vers la page des options
         Intent intent = new Intent(this, OptionsActivity.class);
         startActivity(intent);
     }
+
+    /**
+     * Permet de charger la langue choisir par l'utilisateur et change la langue de l'application
+     */
     public void loadLocale(){
+        //Permet de récupérer la langue choisie par l'utilisateur
         SharedPreferences fav = getSharedPreferences(MY_FAY_LANGUAGES, Activity.MODE_PRIVATE);
         String language = fav.getString("Language", "");
         changeLang(language);
     }
 
+    /**
+     * Permet de changer la langue
+     * @param lang
+     */
     public void changeLang(String lang){
+        //Si la langue choisie est la même que celle de l'application, il ne se passe rien.
         if (lang.equalsIgnoreCase("")){
             return;
         }
+        //Sinon, on change la langue de l'application
         Locale myLocale = new Locale(lang);
         Locale.setDefault(myLocale);
         Configuration config = new Configuration();
@@ -69,7 +95,12 @@ public class MainActivity extends AppCompatActivity {
         getBaseContext().getResources().updateConfiguration(config, getBaseContext().getResources().getDisplayMetrics());
     }
 
+    /**
+     * Quitte l'application
+     * @param v
+     */
     public void clicQuit (View v){
-        System.exit(1);
+        finish();
+        System.exit(0);
     }
 }

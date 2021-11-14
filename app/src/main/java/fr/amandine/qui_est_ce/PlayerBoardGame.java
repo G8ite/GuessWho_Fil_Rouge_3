@@ -121,11 +121,12 @@ public class PlayerBoardGame extends AppCompatActivity {
         if(turn%2 == 0){
             //On charge les vies restantes du joueur 2
             if(player2Life.equals("2")){
-                Log.i("nombre vie J2 2 ", player2Life);
+                //Log.i("nombre vie J2 2 ", player2Life);
+
                 life3.setImageResource(R.drawable.heartbroken);
             }
             else if(player2Life.equals("1")){
-                Log.i("nombre vie J2 1 ", player2Life);
+                //Log.i("nombre vie J2 1 ", player2Life);
                 life2.setImageResource(R.drawable.heartbroken);
                 life3.setImageResource(R.drawable.heartbroken);
             }
@@ -161,7 +162,6 @@ public class PlayerBoardGame extends AppCompatActivity {
             //Récupérer un objets aléatoire dans ma liste d'objets ImageCase (index entre 1 et 18)
             int max = 18;
             int min = 1;
-            int range = max - min + 1;
             Double dIndex = Math.random()*18;
             int index = dIndex.intValue();
             if(lIndex.contains(index)){
@@ -169,8 +169,8 @@ public class PlayerBoardGame extends AppCompatActivity {
                 k--;
             }
             else {
-                Log.i("index", ""+k);
-                Log.i("index", ""+index);
+                //Log.i("index", ""+k);
+                //Log.i("index", ""+index);
 
                 lIndex.add(index);
                 //Je récupère le bouton concerné par la boucle
@@ -186,11 +186,9 @@ public class PlayerBoardGame extends AppCompatActivity {
                 //au joueur 1 et au joueur 2
                 if(k == 0){
                     joueur1button = buttonConcern.getId();
-                    Toast.makeText(getBaseContext(),"id du bouton du joueur 1"+joueur1button,Toast.LENGTH_SHORT ).show();
                 }
                 if(k == 1){
                     joueur2button = buttonConcern.getId();
-                    Toast.makeText(getBaseContext(),"id du bouton du joueur 2"+joueur2button,Toast.LENGTH_SHORT ).show();
                 }
 
                 //Je crée mon chemin d'accès à l'image de mon bouton
@@ -240,24 +238,37 @@ public class PlayerBoardGame extends AppCompatActivity {
                         }
                     }
                 });
+                //Ajouter un onLongClickListener sur chaque bouton
                 buttonConcern.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
+                        //Je récupère les préférences de tour de jeu
                         SharedPreferences selectedItems = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
+                        //Je les rends éditables
                         SharedPreferences.Editor edSelectItem = selectedItems.edit();
+                        //Je change la couleur de mon bouton Proposer, sa vouleur de texte et le rends cliquable
                         propose.setBackgroundColor(getResources().getColor(R.color.green));
                         propose.setTextColor(getResources().getColor(R.color.white));
                         propose.setEnabled(true);
-                        
+
+                        //Le bouton a déjà été cliqué longtemps
                         if(longClickCount == 1){
+                            //Je réinitialise mon compteur
                             longClickCount=0;
+                            //J'ajoute l'élément séléctionné à mes préférences
                             edSelectItem.putString("Selected", "").apply();
+                            //Je change l'image de fond de mon bouton pour une image non grisée
                             buttonConcern.setBackground(getDrawable(getResources().getIdentifier(path, null, getPackageName())));
                         }
+                        //Le bouton n'a pas été cliqué
                         else if (longClickCount == 0){
+                            //Mon compteur est égal à 1
                             longClickCount=1;
+                            //Je prépare le chemin d'accès de l'image en grisée
                             String path2 = path+"grey";
+                            //Je stock l'image séléctionnée dans mes préférences
                             String selectedButton =  img.getNameImg();
                             edSelectItem.putString("Selected", selectedButton).apply();
+                            //Je change le fond de mon bouton pour une image grisée
                             buttonConcern.setBackground(getDrawable(getResources().getIdentifier(path2, null, getPackageName())));
                         }
 
@@ -325,6 +336,7 @@ public class PlayerBoardGame extends AppCompatActivity {
                 }
             }
         }
+        //Si c'est au tour du joueur 1
         else{
             Log.i("verif gagne", sSelectedButton);
             Log.i("verif gagne", joueur1img);
@@ -359,17 +371,32 @@ public class PlayerBoardGame extends AppCompatActivity {
         }
 
     }
+
+    /**
+     * Permet d'appeler l'activité qui rappelle au joueur son personnage
+     * @param v
+     */
     public void remember(View v){
         Intent intent = new Intent (this, Remember.class);
         startActivity(intent);
     }
 
+    /**
+     * Permet de passer au tour suivant
+     * @param v
+     */
     public void nextTurn(View v){
         Intent intent = new Intent(this, PlayerNameScreen.class);
         startActivity(intent);
     }
+
+    /**
+     * Permet de revenir à l'accueil
+     * @param v
+     */
     public void clicQuit(View v){
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 

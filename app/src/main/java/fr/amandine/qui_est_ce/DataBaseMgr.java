@@ -26,6 +26,7 @@ public class DataBaseMgr extends SQLiteOpenHelper {
      * Permet de créer une table gameboard dans la basse de données Game.db
      */
     public void onCreate(SQLiteDatabase db){
+        //requête SQL créant à table gameBoard
         String strSql = "CREATE TABLE "+NAME_TABLE_1+ " ( " +
                 "  idImg INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "  nameImg TEXT NOT NULL, " +
@@ -33,9 +34,8 @@ public class DataBaseMgr extends SQLiteOpenHelper {
                 " joueurImg INTEGER NOT NULL "+
                 " )";
 
+        //On execute la requête
         db.execSQL(strSql);
-
-
         //Log.i(TAG, "oncreate ok");
     }
 
@@ -50,7 +50,6 @@ public class DataBaseMgr extends SQLiteOpenHelper {
         String strSql = "DROP TABLE gameboard";
         db.execSQL(strSql);
         this.onCreate(db);
-
         //Log.i(TAG, "onupgrade ok");
     }
 
@@ -61,26 +60,45 @@ public class DataBaseMgr extends SQLiteOpenHelper {
      * @param joueur
      */
     public void insertImg(String str, int etat, int joueur){
+
+        //Requête permettant d'ajouter une image à la BDD
         String strSql = "INSERT INTO " + NAME_TABLE_1+ "(nameImg , etatImg, joueurImg) VALUES"
                 +"( \""+str+"\","+ etat +","+ joueur + " );";
-        this.getWritableDatabase().execSQL(strSql);
 
+        //On rend la BDD éditable et on execute la requête
+        this.getWritableDatabase().execSQL(strSql);
         //Log.i(TAG, "insertImg ok");
     }
 
 
+    /**
+     * Permet de récupérer une liste d'ImageCase présente dans la BDD en fonction du joueur
+     * @param joueur
+     * @return
+     */
     public List<ImageCase> selectImg(int joueur){
+        //On initie une liste
         List<ImageCase> imgs = new ArrayList<>();
 
+        //On prépare la requête
         String strSql = "SELECT * FROM "+NAME_TABLE_1+" WHERE joueurImg  = "+ joueur;
+        //On initie le curceur, on rend la BDD lisible et on parcours chaque ligne
         Cursor c = this.getReadableDatabase().rawQuery(strSql, null);
+        //On commence par la première ligne
         c.moveToFirst();
+        //Tant qu'on est pas après la dernière ligne disponible
         while(!c.isAfterLast()){
-           ImageCase img = new ImageCase(c.getInt(0),c.getString(1), c.getInt(2), c.getInt(3));
+            //On crée un nouvel objet ImageCase avec les données récupérées dans la BDD
+           ImageCase img = new ImageCase(c.getInt(0),c.getString(1),
+                   c.getInt(2), c.getInt(3));
+           //On ajoute cet objet à notre liste d'objets
            imgs.add(img);
+           //On passe à la ligne suivante
            c.moveToNext();
         }
+        //On ferme notre curseur
         c.close();
+        //On retourne notre liste d'objets
         return imgs;
     }
 
@@ -91,13 +109,17 @@ public class DataBaseMgr extends SQLiteOpenHelper {
     public void deleteTable(String str){
         String strSql = "DELETE FROM "+str;
     }
+
     /**
      * Fonction permettant de changer l'état d'une case lorsqu'elle est cliquée en fonction de son id
      * @param etat
      * @param id
      */
     public void changeState(int etat, int id){
+        //On prépare la requête sql
         String strSql = "UPDATE "+NAME_TABLE_1+" SET etatImg = "+etat+" WHERE idImg ="+id+";";
+
+        //On rend la BDD éditable et on excute la requête
         this.getWritableDatabase().execSQL(strSql);
 
         //Log.i(TAG, "changeStat ok");
