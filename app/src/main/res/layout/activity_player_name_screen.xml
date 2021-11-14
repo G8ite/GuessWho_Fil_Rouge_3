@@ -33,7 +33,7 @@
         <LinearLayout
             android:layout_width="348dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:layout_gravity="center">
             <TextView
                 android:id="@+id/tName1"
@@ -87,7 +87,7 @@
                 android:text="@string/exit"
                 android:textColor="@color/white"
                 android:layout_marginHorizontal="24dp"
-                android:onClick="clicReturn"/>
+                android:onClick="clicQuit"/>
 
             <Button
                 android:onClick="ready"

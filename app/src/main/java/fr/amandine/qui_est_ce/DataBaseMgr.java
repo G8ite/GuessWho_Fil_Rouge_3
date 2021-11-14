@@ -35,6 +35,7 @@ public class DataBaseMgr extends SQLiteOpenHelper {
 
         db.execSQL(strSql);
 
+
         //Log.i(TAG, "oncreate ok");
     }
 

@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
         playerPreferences.edit().remove("Joueur 1 charac").commit();
         playerPreferences.edit().remove("Joueur 2 charac").commit();
 
+        //Supprimer la base de données des cases de jeu si elle ne l'a pas été avant
+        this.deleteDatabase("Game.db");
+
     }
     public void newGame(View v){
         Intent intent = new Intent(this, InscriptionActivity.class);
@@ -67,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void clicQuit (View v){
-        Toast.makeText(getBaseContext(), R.string.exit, Toast.LENGTH_LONG).show();
-        System.exit(0);
+        System.exit(1);
     }
 }

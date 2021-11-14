@@ -17,4 +17,8 @@ public class OptionsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LanguageActivity.class);
         startActivity(intent);
     }
+    public void returnMain(View v){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

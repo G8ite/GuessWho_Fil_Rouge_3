@@ -31,6 +31,8 @@
     <string name="gg">Bien hecho !!</string>
     <string name="replay">Repetición</string>
     <string name="proposed">Proponer</string>
+    <string name="yourImgRemember">Tu personaje es :</string>
+
 
 
 </resources>

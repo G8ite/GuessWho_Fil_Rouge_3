@@ -31,5 +31,7 @@
     <string name="gg">Congratulations !!</string>
     <string name="replay">Replay</string>
     <string name="proposed">Propose</string>
+    <string name="yourImgRemember">Your character is :</string>
+
 
 </resources>

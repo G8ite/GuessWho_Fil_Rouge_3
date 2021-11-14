@@ -20,6 +20,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -41,7 +42,6 @@ public class PlayerBoardGame extends AppCompatActivity {
     int lifeCount = 3;
     int joueur1button = 0;
     int joueur2button = 0;
-    String selectedButton = "";
 
     //Fonctions
 
@@ -52,6 +52,18 @@ public class PlayerBoardGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_board_game);
+
+        //Récupérer le bouton de proposition
+        Button propose = findViewById(R.id.propose);
+
+        //Récupérer les vies des joueurs
+        SharedPreferences PlayersLife = getSharedPreferences(MainActivity.PLAYERS, Activity.MODE_PRIVATE);
+        String player1Life = PlayersLife.getString("Joueur 1 life", "");
+        String player2Life = PlayersLife.getString("Joueur 2 life", "");
+
+        //Récupérer les images views de vie des joueurs
+        ImageView life2 = findViewById(R.id.life2);
+        ImageView life3 = findViewById(R.id.life3);
 
         //Récupérer mes 18 cases que j'insère dans un tableau
         List<Button> lButton = new ArrayList<>();
@@ -107,12 +119,38 @@ public class PlayerBoardGame extends AppCompatActivity {
 
         //Si le tour de jeu est strictement divisible par 2, c'est au tour du joueur 2
         if(turn%2 == 0){
+            //On charge les vies restantes du joueur 2
+            if(player2Life.equals("2")){
+                Log.i("nombre vie J2 2 ", player2Life);
+                life3.setImageResource(R.drawable.heartbroken);
+            }
+            else if(player2Life.equals("1")){
+                Log.i("nombre vie J2 1 ", player2Life);
+                life2.setImageResource(R.drawable.heartbroken);
+                life3.setImageResource(R.drawable.heartbroken);
+            }
+            else {
+                Log.i("nombre vie J2 3 ", player2Life);
+            }
+
             //On récupère la liste des images en fonction du joueur 2
             lImgs = dataBaseMgr.selectImg(2);
-
         }
         //Sinon c'est au joueur 1
         else{
+            //On charge les vies restantes du joueur 1
+            if(player1Life.equals("2")){
+                Log.i("nombre vie J1 2 ", player1Life);
+                life3.setImageResource(R.drawable.heartbroken);
+            }
+            else if(player1Life.equals("1")){
+                Log.i("nombre vie J1 1 ", player1Life);
+                life2.setImageResource(R.drawable.heartbroken);
+                life3.setImageResource(R.drawable.heartbroken);
+            }
+            else {
+                Log.i("nombre vie J1 3 ", player1Life);
+            }
             //On récupère la liste des images en fonction du joueur 1
             lImgs = dataBaseMgr.selectImg(1);
 
@@ -198,20 +236,28 @@ public class PlayerBoardGame extends AppCompatActivity {
                             dataBaseMgr.changeState(0,idImg);
                             //On change l'état de l'objet en attendant que la BDD se recharge
                             img.setEtatImg(0);
-                            Log.i("index etat face cachée : ", ""+img.getEtatImg());
+                            Log.i("index etat face cach", ""+img.getEtatImg());
                         }
                     }
                 });
                 buttonConcern.setOnLongClickListener(new View.OnLongClickListener() {
                     public boolean onLongClick(View v) {
+                        SharedPreferences selectedItems = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
+                        SharedPreferences.Editor edSelectItem = selectedItems.edit();
+                        propose.setBackgroundColor(getResources().getColor(R.color.green));
+                        propose.setTextColor(getResources().getColor(R.color.white));
+                        propose.setEnabled(true);
+                        
                         if(longClickCount == 1){
                             longClickCount=0;
-                            selectedButton =  img.getNameImg();
+                            edSelectItem.putString("Selected", "").apply();
                             buttonConcern.setBackground(getDrawable(getResources().getIdentifier(path, null, getPackageName())));
                         }
                         else if (longClickCount == 0){
                             longClickCount=1;
                             String path2 = path+"grey";
+                            String selectedButton =  img.getNameImg();
+                            edSelectItem.putString("Selected", selectedButton).apply();
                             buttonConcern.setBackground(getDrawable(getResources().getIdentifier(path2, null, getPackageName())));
                         }
 
@@ -219,9 +265,6 @@ public class PlayerBoardGame extends AppCompatActivity {
                         return true;
                     }
                 });
-
-                //Permettre à chaque image d'ouvrir un menu contextuel
-                    //registerForContextMenu(buttonConcern);
 
             }
 
@@ -235,10 +278,11 @@ public class PlayerBoardGame extends AppCompatActivity {
     /**
      * Permet de vérifier si la proposition du joueur est bonne
      */
-    public void propose(){
-        //On récupère le tour de jeu
+    public void propose(View v){
+        //On récupère le tour de jeu et le dernier bouton séléctionné
         SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
         String sTurn = countTurn.getString("Tour de Jeu", "1");
+        String sSelectedButton = countTurn.getString("Selected","");
         int turn = Integer.valueOf(sTurn);
         //On récupère les informations sur les joueurs
         SharedPreferences joueursTurn = getSharedPreferences(MainActivity.PLAYERS, Activity.MODE_PRIVATE);
@@ -246,12 +290,14 @@ public class PlayerBoardGame extends AppCompatActivity {
         String joueur1img = joueursTurn.getString("Joueur 1 charac", "");
         String joueur2Name = joueursTurn.getString("Joueur2", "");
         String joueur2img = joueursTurn.getString("Joueur 2 charac", "");
+        //Pour modifier le nom du gagnant en fonction de la situation
+        SharedPreferences.Editor edWinner = joueursTurn.edit();
         //Si c'est au tour du joueur 2
         if(turn%2==0){
+
             //Si les images correspondent
-            if(selectedButton.equals(joueur1img)){
+            if(sSelectedButton.equals(joueur1img)){
                 //Je stocke le nom du vainqueur dans les données de joueurs
-                SharedPreferences.Editor edWinner = joueursTurn.edit();
                 edWinner.putString("Gagnant", joueur2Name).apply();
                 //Je passe à la page de victoire
                 Intent intent = new Intent(this, GoalActivity.class);
@@ -260,62 +306,70 @@ public class PlayerBoardGame extends AppCompatActivity {
             }
             //Si elles ne correspondent pas
             else{
-                //Je change le compteur de vie
-                //lifeCount--;
-                //Je le met à jour dans mes préférences
-                //Je passe à la page d'annonce du joueur suivant
-                Intent intent = new Intent(this, PlayerNameScreen.class);
+                //On récupère les vies restantes
+                String joueur2life = joueursTurn.getString("Joueur 2 life", "");
+                int iJoueur2life = Integer.valueOf(joueur2life);
+
+                if(iJoueur2life == 1){
+                    edWinner.putString("Gagnant",joueur1Name).apply();
+                    Intent intent = new Intent(this, GoalActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    iJoueur2life --;
+                    String sJoueur2life = Integer.toString(iJoueur2life);
+                    edWinner.putString("Joueur 2 life",sJoueur2life).apply();
+                    //Je passe à la page d'annonce du joueur suivant
+                    Intent intent = new Intent(this, PlayerNameScreen.class);
+                    startActivity(intent);
+                }
+            }
+        }
+        else{
+            Log.i("verif gagne", sSelectedButton);
+            Log.i("verif gagne", joueur1img);
+
+            if(sSelectedButton.equals(joueur2img)){
+                //Je stocke le nom du vainqueur dans les données de joueurs
+                edWinner.putString("Gagnant", joueur1Name).apply();
+                //Je passe à la page de victoire
+                Intent intent = new Intent(this, GoalActivity.class);
                 startActivity(intent);
+
+            }
+            else{
+                //On récupère les vies restantes
+                String joueur1life = joueursTurn.getString("Joueur 1 life", "");
+                int iJoueur1life = Integer.valueOf(joueur1life);
+
+                if(iJoueur1life == 1){
+                    edWinner.putString("Gagnant",joueur2Name).apply();
+                    Intent intent = new Intent(this, GoalActivity.class);
+                    startActivity(intent);
+                }
+                else {
+                    iJoueur1life --;
+                    String sJoueur1life = Integer.toString(iJoueur1life);
+                    edWinner.putString("Joueur 1 life",sJoueur1life).apply();
+                    //Je passe à la page d'annonce du joueur suivant
+                    Intent intent = new Intent(this, PlayerNameScreen.class);
+                    startActivity(intent);
+                }
             }
         }
 
     }
-    /**
-     * Permet de créer un menu contextuel
-     * @param menu
-     * @param v
-     * @param menuInfo
-     */
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        getMenuInflater().inflate(R.menu.menu, menu);
-        super.onCreateContextMenu(menu, v, menuInfo);
-        int test = v.getId();
-        Toast.makeText(getBaseContext(), ""+test, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * Permet de gérer les items du menu contextuel
-     * @param item
-     * @return
-     */
-    public boolean onContextItemSelected(@NonNull MenuItem item){
-        switch (item.getItemId()){
-            case R.id.zoom :
-                Toast.makeText(getBaseContext(), "on a zoomé là", Toast.LENGTH_LONG).show();
-                break;
-            case R.id.propose:
-                Toast.makeText(getBaseContext(), "on a séléctionné là", Toast.LENGTH_LONG).show();
-                //Log.i("Informations sur l'objet au long clique : ", );
-                break;
-        }
-        return super.onContextItemSelected(item);
+    public void remember(View v){
+        Intent intent = new Intent (this, Remember.class);
+        startActivity(intent);
     }
 
     public void nextTurn(View v){
-        SharedPreferences countTurn = getSharedPreferences("Game_Turn", Activity.MODE_PRIVATE);
-        String sCount = countTurn.getString("Tour de Jeu", "");
-        int count = Integer.valueOf(sCount);
-        //Log.i("Count", newCount);
-        //Permet d'arrêter la partie sans gagnants
-
-        Intent intent = new Intent();
-        if(count == 6){
-            intent = new Intent(this, GoalActivity.class);
-
-        }
-        else{
-            intent = new Intent(this, PlayerNameScreen.class);
-        }
+        Intent intent = new Intent(this, PlayerNameScreen.class);
+        startActivity(intent);
+    }
+    public void clicQuit(View v){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

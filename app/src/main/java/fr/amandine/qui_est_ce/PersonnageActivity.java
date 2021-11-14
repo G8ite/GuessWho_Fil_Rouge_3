@@ -24,7 +24,6 @@ public class PersonnageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_personnage);
-        Log.i("blabla", "blabla");
 
         //Données membres
         TextView tvName = (TextView) findViewById(R.id.tName);
@@ -144,6 +143,11 @@ public class PersonnageActivity extends AppCompatActivity {
             String path = "@drawable/"+strPlayerTwo;
             character.setImageResource(getResources().getIdentifier(path, null, getPackageName()));
 
+            //Mettre dans les préférences les vies des 2 joueurs
+            SharedPreferences.Editor edPlayersLife = players.edit();
+            edPlayersLife.putString("Joueur 1 life", "3").apply();
+            edPlayersLife.putString("Joueur 2 life", "3").apply();
+
             //Initier un intent pour aller à la page du plateau de jeu
             intent = new Intent(this, PlayerNameScreen.class);
         }
@@ -151,6 +155,11 @@ public class PersonnageActivity extends AppCompatActivity {
     }
     public void ready(View v){
         //Je peux passer à l'activité suivante
+        startActivity(intent);
+    }
+
+    public void clicQuit(View v){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 }

@@ -26,21 +26,38 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="end"
-                android:layout_marginRight="12dp">
+                android:gravity="center"
+                android:padding="12dp">
                 <ImageView
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:src="@drawable/heart"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/heart"/>
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/heart"/>
+                    android:src="@drawable/question"
+                    android:layout_marginRight="24dp"
+                    android:onClick="remember"
+                    />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:layout_marginLeft="24dp">
+                    <ImageView
+                        android:id="@+id/life1"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/heart"/>
+                    <ImageView
+                        android:id="@+id/life2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/heart"/>
+                    <ImageView
+                        android:id="@+id/life3"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/heart"/>
+                </LinearLayout>
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/linearContainer"
                 android:layout_width="match_parent"
@@ -191,9 +208,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/proposed"
-                android:background="@color/green"
-                android:textColor="@color/white"
-                android:onClick="propose"/>
+                android:onClick="propose"
+                android:textColor="@color/lightGrey"
+                android:background="@color/grey"
+                android:enabled="false"/>
         </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -206,7 +224,8 @@
                     android:text="@string/exit"
                     android:layout_marginRight="24dp"
                     android:background="@color/pink"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:onClick="clicQuit"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
