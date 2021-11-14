@@ -91,12 +91,12 @@ public class DataBaseMgr extends SQLiteOpenHelper {
         String strSql = "DELETE FROM "+str;
     }
     /**
-     * Fonction permettant de changer l'état d'une case lorsqu'elle est cliquée en fonction de son nom
+     * Fonction permettant de changer l'état d'une case lorsqu'elle est cliquée en fonction de son id
      * @param etat
-     * @param str
+     * @param id
      */
-    public void changeStat(int etat, String str){
-        String strSql = "UPDATE "+NAME_TABLE_1+" SET etatImg = "+etat+" WHERE nameImge = \""+str+"\"";
+    public void changeState(int etat, int id){
+        String strSql = "UPDATE "+NAME_TABLE_1+" SET etatImg = "+etat+" WHERE idImg ="+id+";";
         this.getWritableDatabase().execSQL(strSql);
 
         //Log.i(TAG, "changeStat ok");
