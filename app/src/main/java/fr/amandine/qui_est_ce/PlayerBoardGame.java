@@ -11,6 +11,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.Icon;
 import android.media.Image;
+import android.net.nsd.NsdManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -34,8 +35,13 @@ public class PlayerBoardGame extends AppCompatActivity {
 
     //Données membres
     int clickCount = 0;
+    int longClickCount = 0;
     private DataBaseMgr dataBaseMgr;
     List<ImageCase> lImgs = new ArrayList<>();
+    int lifeCount = 3;
+    int joueur1button = 0;
+    int joueur2button = 0;
+    String selectedButton = "";
 
     //Fonctions
 
@@ -137,6 +143,18 @@ public class PlayerBoardGame extends AppCompatActivity {
                 //Je récupère le nom de l'image à insérer dans le bouton
                 String imgName = img.getNameImg();
                 Log.i("index", imgName);
+                //Pour les 2 premièrs tours, je stocke l'id des boutons
+                //Puisque les 2 boutons modifiés seront ceux avec l'image correspondant
+                //au joueur 1 et au joueur 2
+                if(k == 0){
+                    joueur1button = buttonConcern.getId();
+                    Toast.makeText(getBaseContext(),"id du bouton du joueur 1"+joueur1button,Toast.LENGTH_SHORT ).show();
+                }
+                if(k == 1){
+                    joueur2button = buttonConcern.getId();
+                    Toast.makeText(getBaseContext(),"id du bouton du joueur 2"+joueur2button,Toast.LENGTH_SHORT ).show();
+                }
+
                 //Je crée mon chemin d'accès à l'image de mon bouton
                 String path = "@drawable/"+imgName;
                 //On récupère l'état de la carte
@@ -162,7 +180,9 @@ public class PlayerBoardGame extends AppCompatActivity {
                             //Je récupère l'id de l'objet image
                             int idImg = img.getIdImg();
                             //Je change son état dans la BDD
-                            dataBaseMgr.changeState(0,idImg);
+                            dataBaseMgr.changeState(1,idImg);
+                            //On change l'état de l'objet en attendant que la BDD se recharge
+                            img.setEtatImg(1);
                             Log.i("index etat image : ", ""+img.getEtatImg());
                         }
                         //L'image est face visible
@@ -176,17 +196,80 @@ public class PlayerBoardGame extends AppCompatActivity {
                             int idImg = img.getIdImg();
                             //Je change son état dans la BDD
                             dataBaseMgr.changeState(0,idImg);
+                            //On change l'état de l'objet en attendant que la BDD se recharge
+                            img.setEtatImg(0);
                             Log.i("index etat face cachée : ", ""+img.getEtatImg());
                         }
                     }
                 });
+                buttonConcern.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        if(longClickCount == 1){
+                            longClickCount=0;
+                            selectedButton =  img.getNameImg();
+                            buttonConcern.setBackground(getDrawable(getResources().getIdentifier(path, null, getPackageName())));
+                        }
+                        else if (longClickCount == 0){
+                            longClickCount=1;
+                            String path2 = path+"grey";
+                            buttonConcern.setBackground(getDrawable(getResources().getIdentifier(path2, null, getPackageName())));
+                        }
+
+                        //Toast.makeText(getBaseContext(), selectedButton, Toast.LENGTH_SHORT).show();
+                        return true;
+                    }
+                });
+
+                //Permettre à chaque image d'ouvrir un menu contextuel
+                    //registerForContextMenu(buttonConcern);
+
             }
+
         }
 
         //Fermeture de la connection avec la base de données
         dataBaseMgr.close();
     }
 
+
+    /**
+     * Permet de vérifier si la proposition du joueur est bonne
+     */
+    public void propose(){
+        //On récupère le tour de jeu
+        SharedPreferences countTurn = getSharedPreferences(MainActivity.GAME_TURN, Activity.MODE_PRIVATE);
+        String sTurn = countTurn.getString("Tour de Jeu", "1");
+        int turn = Integer.valueOf(sTurn);
+        //On récupère les informations sur les joueurs
+        SharedPreferences joueursTurn = getSharedPreferences(MainActivity.PLAYERS, Activity.MODE_PRIVATE);
+        String joueur1Name = joueursTurn.getString("Joueur1", "");
+        String joueur1img = joueursTurn.getString("Joueur 1 charac", "");
+        String joueur2Name = joueursTurn.getString("Joueur2", "");
+        String joueur2img = joueursTurn.getString("Joueur 2 charac", "");
+        //Si c'est au tour du joueur 2
+        if(turn%2==0){
+            //Si les images correspondent
+            if(selectedButton.equals(joueur1img)){
+                //Je stocke le nom du vainqueur dans les données de joueurs
+                SharedPreferences.Editor edWinner = joueursTurn.edit();
+                edWinner.putString("Gagnant", joueur2Name).apply();
+                //Je passe à la page de victoire
+                Intent intent = new Intent(this, GoalActivity.class);
+                startActivity(intent);
+
+            }
+            //Si elles ne correspondent pas
+            else{
+                //Je change le compteur de vie
+                //lifeCount--;
+                //Je le met à jour dans mes préférences
+                //Je passe à la page d'annonce du joueur suivant
+                Intent intent = new Intent(this, PlayerNameScreen.class);
+                startActivity(intent);
+            }
+        }
+
+    }
     /**
      * Permet de créer un menu contextuel
      * @param menu
@@ -196,7 +279,8 @@ public class PlayerBoardGame extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         getMenuInflater().inflate(R.menu.menu, menu);
         super.onCreateContextMenu(menu, v, menuInfo);
-
+        int test = v.getId();
+        Toast.makeText(getBaseContext(), ""+test, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -205,7 +289,15 @@ public class PlayerBoardGame extends AppCompatActivity {
      * @return
      */
     public boolean onContextItemSelected(@NonNull MenuItem item){
-        Toast.makeText(this,""+item.getTitle(), Toast.LENGTH_LONG).show();
+        switch (item.getItemId()){
+            case R.id.zoom :
+                Toast.makeText(getBaseContext(), "on a zoomé là", Toast.LENGTH_LONG).show();
+                break;
+            case R.id.propose:
+                Toast.makeText(getBaseContext(), "on a séléctionné là", Toast.LENGTH_LONG).show();
+                //Log.i("Informations sur l'objet au long clique : ", );
+                break;
+        }
         return super.onContextItemSelected(item);
     }
 

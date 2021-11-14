@@ -30,4 +30,6 @@
     <string name="sameLang">You already are in english</string>
     <string name="gg">Congratulations !!</string>
     <string name="replay">Replay</string>
+    <string name="proposed">Propose</string>
+
 </resources>

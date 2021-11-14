@@ -30,4 +30,5 @@
     <string name="sameLang">Vous êtes déja en français</string>
     <string name="gg">Bravo !!</string>
     <string name="replay">Rejouer</string>
+    <string name="proposed">Proposer</string>
 </resources>

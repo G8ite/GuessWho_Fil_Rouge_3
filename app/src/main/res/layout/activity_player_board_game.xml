@@ -24,12 +24,29 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="end"
+                android:layout_marginRight="12dp">
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/heart"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/heart"/>
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/heart"/>
+            </LinearLayout>
+            <LinearLayout
                 android:id="@+id/linearContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginBottom="12dp"
                 android:gravity="center">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -40,7 +57,8 @@
                         android:layout_width="125dp"
                         android:layout_height="125dp"
                         android:background="@drawable/card"
-                        android:layout_marginRight="10dp"/>
+                        android:layout_marginRight="10dp"
+                        android:shadowColor="@color/blue"/>
                     <Button
                         android:id="@+id/id2"
                         android:layout_width="125dp"
@@ -163,6 +181,20 @@
                         android:background="@drawable/card"/>
                 </LinearLayout>
             </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="10dp">
+            <Button
+                android:id="@+id/propose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/proposed"
+                android:background="@color/green"
+                android:textColor="@color/white"
+                android:onClick="propose"/>
+        </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

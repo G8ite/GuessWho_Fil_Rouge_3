@@ -30,5 +30,7 @@
     <string name="sameLang">Ya estas en español</string>
     <string name="gg">Bien hecho !!</string>
     <string name="replay">Repetición</string>
+    <string name="proposed">Proponer</string>
+
 
 </resources>
